@@ -182,6 +182,11 @@ activities_list = [
         "dall_e": "slot machines",
         "chapter_title": "Grinding",
     },
+    {
+        "activity": "drinking and driving",
+        "dall_e": "drinking in the car",
+        "chapter_title": "Road Sodes",
+    },
 ]
 
 
