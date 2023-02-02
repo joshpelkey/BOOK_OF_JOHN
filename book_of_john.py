@@ -187,6 +187,11 @@ activities_list = [
         "dall_e": "drinking in the car",
         "chapter_title": "Road Sodes",
     },
+    {
+        "activity": "getting nothing done",
+        "dall_e": "boredom",
+        "chapter_title": "Fruitless Labor",
+    },
 ]
 
 bros = ["", "", "", " with his bro JP", " with his bro Kris"]
