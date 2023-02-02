@@ -189,6 +189,8 @@ activities_list = [
     },
 ]
 
+bros = ["", "", "", " with his bro JP", " with his bro Kris"]
+
 
 # pick a randoms
 theme = random.choice(emotions)
@@ -206,6 +208,7 @@ starting_verse_number = random.randint(1, 993)
 gpt_prompt = (
     "Tell me an overly descriptive story about John "
     + activity_dict["activity"]
+    + random.choice(bros)
     + " with the theme of "
     + theme
     + " in "
