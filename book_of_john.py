@@ -95,7 +95,7 @@ activities_list = [
     {
         "activity": "gambling at the casino",
         "dall_e": "sitting at a card table",
-        "chapter_title": "Mathematics",
+        "chapter_title": "Rain Man",
     },
     {
         "activity": "watching sports",
@@ -115,7 +115,7 @@ activities_list = [
     {
         "activity": "delivering packages",
         "dall_e": "delivering packages",
-        "chapter_title": "Kama Sutra",
+        "chapter_title": "Tracking Numbers",
     },
     {
         "activity": "making cocktails",
@@ -145,7 +145,7 @@ activities_list = [
     {
         "activity": "telling long stories",
         "dall_e": "telling long stories",
-        "chapter_title": "Word of Art",
+        "chapter_title": "Verbose Logging",
     },
     {
         "activity": "gaming the stock market",
@@ -194,8 +194,8 @@ activities_list = [
     },
 ]
 
-bros = ["", "", "", " with his bro JP", " with his bro Kris"]
-
+bros = ["", "", "", " with his bud JP", " with his bud Kris"]
+random_bro = random.choice(bros)
 
 # pick a randoms
 theme = random.choice(emotions)
@@ -213,7 +213,7 @@ starting_verse_number = random.randint(1, 993)
 gpt_prompt = (
     "Tell me an overly descriptive story about John "
     + activity_dict["activity"]
-    + random.choice(bros)
+    + random_bro
     + " with the theme of "
     + theme
     + " in "
@@ -233,7 +233,7 @@ chat_response = openai.Completion.create(
     engine="text-davinci-003", prompt=gpt_prompt, temperature=0.75, max_tokens=2048
 )
 # DALL-E prompt
-dalle_prompt = "a painting of " + activity_dict["dall_e"] + " with influence from a famous work about " + theme
+dalle_prompt = "a painting of John" + random_bro + activity_dict["dall_e"] + " with influence from a famous work about " + theme
 
 # generate a dope DALL-E image
 dalle_response = openai.Image.create(prompt=dalle_prompt, size="256x256")
