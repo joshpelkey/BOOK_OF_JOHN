@@ -156,7 +156,7 @@ activities_list = [
     {
         "activity": "gambling at the casino",
         "bro_list": ["JP", "Bilinski"],
-        "dall_e": "sitting at a card table",
+        "dall_e": "sitting at a card table with a bunch of ladies",
         "chapter_title": "Rain Man",
     },
     {
@@ -168,7 +168,7 @@ activities_list = [
     {
         "activity": "playing blackjack",
         "bro_list": ["JP", "Bilinski"],
-        "dall_e": "playing cards",
+        "dall_e": "playing blackjack",
         "chapter_title": "Counting Cards",
     },
     {
@@ -180,13 +180,13 @@ activities_list = [
     {
         "activity": "delivering packages",
         "bro_list": None,
-        "dall_e": "delivering packages",
+        "dall_e": "delivering packages to beautiful women",
         "chapter_title": "Tracking Numbers",
     },
     {
         "activity": "making cocktails",
         "bro_list": ["JP", "Kris", "Bilinski", "Bobby", "Matt", "Robert", "Wells"],
-        "dall_e": "mixing drinks",
+        "dall_e": "mixing drinks at an enormous bar",
         "chapter_title": "Mixology",
     },
     {
@@ -234,25 +234,25 @@ activities_list = [
     {
         "activity": "jumping on the trampoline",
         "bro_list": ["JP", "Kris"],
-        "dall_e": "jumping on the trampoline",
+        "dall_e": "jumping on the trampoline on fire",
         "chapter_title": "The Dangers of Childhood",
     },
     {
         "activity": "being shirtless",
         "bro_list": ["JP", "Kris", "Bilinski", "Bobby", "Matt", "Robert", "Wells"],
-        "dall_e": "being shirtless",
+        "dall_e": "being shirtless with eagles flying around",
         "chapter_title": "FREEDOM",
     },
     {
         "activity": "smoking weed",
         "bro_list": ["JP", "Bobby", "Robert"],
-        "dall_e": "smoking",
+        "dall_e": "smoking and laughing",
         "chapter_title": "At 30,000 Ft",
     },
     {
         "activity": "slaying a beast",
         "bro_list": None,
-        "dall_e": "hunting",
+        "dall_e": "hunting aliens",
         "chapter_title": "The Great Hunt",
     },
     {
@@ -339,7 +339,7 @@ chat_response = openai.Completion.create(
 # DALL-E prompt
 
 # paint it
-dalle_prompt = "a painting of John (brown hair, brown eyes, with a beard)" + bro_dalle_text + " " + activity_dict["dall_e"] + " with influence from a famous work about " + theme
+dalle_prompt = "a painting of " + theme + " with John (brown hair, brown eyes, with a beard)" + bro_dalle_text + " " + activity_dict["dall_e"]
 
 print(dalle_prompt)
 
