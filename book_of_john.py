@@ -81,131 +81,235 @@ emotions = [
     "tranquility",
 ]
 
+bro_dict = {
+
+        "JP": 
+            {
+              "name": "JP",
+              "hair": "blonde",
+              "eyes": "blue",
+              "beard": False,
+            },
+
+        "Kris": 
+            {
+              "name": "Kris",
+              "hair": "blonde",
+              "eyes": "blue",
+              "beard": True 
+            },
+
+        "Bilinski": 
+            {
+              "name": "Bilinski",
+              "hair": "blonde",
+              "eyes": "blue",
+              "beard": False
+            },
+
+        "Bobby": 
+            {
+              "name": "Bobby",
+              "hair": "long brown",
+              "eyes": "brown",
+              "beard": True
+            },
+
+        "Matt": 
+            {
+              "name": "Matt",
+              "hair": "short brown",
+              "eyes": "brown",
+              "beard": True
+            },
+
+        "Robert": 
+            {
+              "name": "Robert",
+              "hair": "red",
+              "eyes": "brown",
+              "beard": True
+            },
+
+        "Wells": 
+            {
+              "name": "Wells",
+              "hair": "short brown",
+              "eyes": "brown",
+              "beard": False 
+            },
+}
+
 activities_list = [
     {
         "activity": "drinking whiskey",
+        "bro_list": ["JP", "Kris", "Bilinski", "Bobby", "Matt", "Robert", "Wells"],
         "dall_e": "drinking whiskey",
         "chapter_title": "Whiskey",
     },
     {
         "activity": "playing golf",
+        "bro_list": ["JP", "Kris", "Bilinski", "Bobby", "Matt", "Robert"],
         "dall_e": "playing golf",
         "chapter_title": "Tee Time",
     },
     {
         "activity": "gambling at the casino",
+        "bro_list": ["JP", "Bilinski"],
         "dall_e": "sitting at a card table",
         "chapter_title": "Rain Man",
     },
     {
         "activity": "watching sports",
+        "bro_list": ["JP", "Kris", "Bilinski"],
         "dall_e": "watching sports",
         "chapter_title": "The Sport",
     },
     {
         "activity": "playing blackjack",
+        "bro_list": ["JP", "Bilinski"],
         "dall_e": "playing cards",
         "chapter_title": "Counting Cards",
     },
     {
         "activity": "throwing dice",
-        "dall_e": "throwing dice",
+        "bro_list": ["JP", "Kris", "Bilinski"],
+        "dall_e": "throwing dice at the craps table",
         "chapter_title": "Come 69",
     },
     {
         "activity": "delivering packages",
+        "bro_list": None,
         "dall_e": "delivering packages",
         "chapter_title": "Tracking Numbers",
     },
     {
         "activity": "making cocktails",
+        "bro_list": ["JP", "Kris", "Bilinski", "Bobby", "Matt", "Robert", "Wells"],
         "dall_e": "mixing drinks",
         "chapter_title": "Mixology",
     },
     {
         "activity": "drinking beers",
-        "dall_e": "drinking",
+        "bro_list": ["JP", "Kris", "Bilinski", "Bobby", "Matt", "Robert", "Wells"],
+        "dall_e": "drinking with hundreds of empty cans around",
         "chapter_title": "Drinking, Part 2",
     },
     {
         "activity": "enjoying craft beer",
-        "dall_e": "drinking at a bar",
+        "bro_list": ["JP", "Kris", "Bilinski", "Bobby", "Matt", "Robert", "Wells"],
+        "dall_e": "drinking at a formal bar with classy attire",
         "chapter_title": "Fancy Drink",
     },
     {
         "activity": "investing in cryptocurrency",
-        "dall_e": "cryptocurrency",
+        "bro_list": ["JP", "Bilinski"],
+        "dall_e": "typing madly on a keyboard",
         "chapter_title": "Examination of Cryptocurrency Microeconomics",
     },
     {
         "activity": "drinking wine",
+        "bro_list": ["JP", "Kris", "Bilinski", "Bobby", "Matt", "Robert", "Wells"],
         "dall_e": "drinking wine",
         "chapter_title": "Side Wine",
     },
     {
         "activity": "telling long stories",
+        "bro_list": None,
         "dall_e": "telling long stories",
         "chapter_title": "Verbose Logging",
     },
     {
         "activity": "gaming the stock market",
+        "bro_list": ["JP"],
         "dall_e": "investing in the stock market",
         "chapter_title": "Stonks",
     },
     {
         "activity": "playing old nintendo games",
+        "bro_list": ["JP", "Kris"],
         "dall_e": "playing old nintendo games",
         "chapter_title": "8-bit Adventures",
     },
     {
         "activity": "jumping on the trampoline",
+        "bro_list": ["JP", "Kris"],
         "dall_e": "jumping on the trampoline",
         "chapter_title": "The Dangers of Childhood",
     },
     {
         "activity": "being shirtless",
+        "bro_list": ["JP", "Kris", "Bilinski", "Bobby", "Matt", "Robert", "Wells"],
         "dall_e": "being shirtless",
         "chapter_title": "FREEDOM",
     },
     {
         "activity": "smoking weed",
+        "bro_list": ["JP", "Bobby", "Robert"],
         "dall_e": "smoking",
         "chapter_title": "At 30,000 Ft",
     },
     {
         "activity": "slaying a beast",
+        "bro_list": None,
         "dall_e": "hunting",
         "chapter_title": "The Great Hunt",
     },
     {
         "activity": "playing slot machines",
-        "dall_e": "slot machines",
+        "bro_list": ["JP", "Kris", "Bilinski"],
+        "dall_e": "playing slot machines at the casino",
         "chapter_title": "Grinding",
     },
     {
         "activity": "drinking and driving",
+        "bro_list": ["JP", "Kris", "Bilinski", "Bobby", "Matt", "Robert", "Wells"],
         "dall_e": "drinking in the car",
         "chapter_title": "Road Sodes",
     },
     {
         "activity": "getting nothing done",
-        "dall_e": "boredom",
+        "bro_list": None,
+        "dall_e": "staring at himself in the mirror",
         "chapter_title": "Fruitless Labor",
     },
 ]
 
-bros = ["", "", "", " with his bud JP", " with his bud Kris"]
-random_bro = random.choice(bros)
-
-# pick a randoms
+# pick a random emotion
 theme = random.choice(emotions)
 
+# storing activity number as the chapter number
 activity_number = random.randint(
     0, 
     len(activities_list) - 1
 )
 
+# getting the activity
 activity_dict = activities_list[activity_number]
+
+# getting a bro (or not) to bro with
+bros = activity_dict["bro_list"]
+if bros:
+    bro_key = random.choice(bros)
+    bro = bro_dict[bro_key]
+
+    # with his bro
+    bro_gpt_text = " with his bro " + bro['name']
+
+    # see if bros have a beard for painting
+    if(bro['beard']):
+        bro_dalle_text = " with his bro " + bro['name'] + " (" + bro['hair'] + " hair, " + bro['eyes'] + " eyes, with beard)"
+    else:
+        bro_dalle_text = " with his bro " + bro['name'] + " (" + bro['hair'] + " hair, " + bro['eyes'] + " eyes, no beard)"
+
+else:
+    # john is alone
+    bro_gpt_text = ""
+    bro_dalle_text = ""
+
+
+
+# random number of verses and starting verse
 number_verses = random.randint(3, 7)
 starting_verse_number = random.randint(1, 993)
 
@@ -213,7 +317,7 @@ starting_verse_number = random.randint(1, 993)
 gpt_prompt = (
     "Tell me an overly descriptive story about John "
     + activity_dict["activity"]
-    + random_bro
+    + bro_gpt_text
     + " with the theme of "
     + theme
     + " in "
@@ -233,7 +337,11 @@ chat_response = openai.Completion.create(
     engine="text-davinci-003", prompt=gpt_prompt, temperature=0.75, max_tokens=2048
 )
 # DALL-E prompt
-dalle_prompt = "a painting of John" + random_bro + activity_dict["dall_e"] + " with influence from a famous work about " + theme
+
+# paint it
+dalle_prompt = "a painting of John (brown hair, brown eyes, with a beard)" + bro_dalle_text + " " + activity_dict["dall_e"] + " with influence from a famous work about " + theme
+
+print(dalle_prompt)
 
 # generate a dope DALL-E image
 dalle_response = openai.Image.create(prompt=dalle_prompt, size="256x256")
