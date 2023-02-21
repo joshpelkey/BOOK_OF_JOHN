@@ -144,134 +144,140 @@ activities_list = [
     {
         "activity": "drinking whiskey",
         "bro_list": ["JP", "Kris", "Bilinski", "Bobby", "Matt", "Robert", "Wells"],
-        "dall_e": "drinking whiskey",
+        "dall_e": "drinking whiskey, photorealistic",
         "chapter_title": "Whiskey",
     },
     {
         "activity": "playing golf",
         "bro_list": ["JP", "Kris", "Bilinski", "Bobby", "Matt", "Robert"],
-        "dall_e": "playing golf",
+        "dall_e": "playing golf, wide angle lens",
         "chapter_title": "Tee Time",
     },
     {
         "activity": "gambling at the casino",
         "bro_list": ["JP", "Bilinski"],
-        "dall_e": "sitting at a card table with a bunch of ladies",
+        "dall_e": "standing by a roulette wheel with a bunch of ladies, surrealism",
         "chapter_title": "Rain Man",
     },
     {
         "activity": "watching sports",
         "bro_list": ["JP", "Kris", "Bilinski"],
-        "dall_e": "watching sports",
+        "dall_e": "watching sports, as lego blocks",
         "chapter_title": "The Sport",
     },
     {
         "activity": "playing blackjack",
         "bro_list": ["JP", "Bilinski"],
-        "dall_e": "playing blackjack",
+        "dall_e": "playing blackjack in a casino, photorealistic",
         "chapter_title": "Counting Cards",
     },
     {
         "activity": "throwing dice",
         "bro_list": ["JP", "Kris", "Bilinski"],
-        "dall_e": "throwing dice at the craps table",
+        "dall_e": "throwing dice at the craps table, digital art",
         "chapter_title": "Come 69",
     },
     {
         "activity": "delivering packages",
         "bro_list": None,
-        "dall_e": "delivering packages to beautiful women",
+        "dall_e": "delivering packages to beautiful women, surrealism",
         "chapter_title": "Tracking Numbers",
     },
     {
         "activity": "making cocktails",
         "bro_list": ["JP", "Kris", "Bilinski", "Bobby", "Matt", "Robert", "Wells"],
-        "dall_e": "mixing drinks at an enormous bar",
+        "dall_e": "mixing drinks at an enormous bar, lomography",
         "chapter_title": "Mixology",
     },
     {
         "activity": "drinking beers",
         "bro_list": ["JP", "Kris", "Bilinski", "Bobby", "Matt", "Robert", "Wells"],
-        "dall_e": "drinking with hundreds of empty cans around",
+        "dall_e": "drinking with hundreds of empty cans around, drone photography",
         "chapter_title": "Drinking, Part 2",
     },
     {
         "activity": "enjoying craft beer",
         "bro_list": ["JP", "Kris", "Bilinski", "Bobby", "Matt", "Robert", "Wells"],
-        "dall_e": "drinking at a formal bar with classy attire",
+        "dall_e": "drinking at a formal bar with classy attire, fashion photography",
         "chapter_title": "Fancy Drink",
     },
     {
         "activity": "investing in cryptocurrency",
         "bro_list": ["JP", "Bilinski"],
-        "dall_e": "typing madly on a keyboard",
+        "dall_e": "typing madly on a keyboard, fish eye lens",
         "chapter_title": "Examination of Cryptocurrency Microeconomics",
     },
     {
         "activity": "drinking wine",
         "bro_list": ["JP", "Kris", "Bilinski", "Bobby", "Matt", "Robert", "Wells"],
-        "dall_e": "drinking wine",
+        "dall_e": "drinking wine under the stars, long exposure slow shutter speed",
         "chapter_title": "Side Wine",
     },
     {
         "activity": "telling long stories",
         "bro_list": None,
-        "dall_e": "telling long stories",
+        "dall_e": "telling long stories, polaroid",
         "chapter_title": "Verbose Logging",
     },
     {
         "activity": "gaming the stock market",
         "bro_list": ["JP"],
-        "dall_e": "investing in the stock market",
+        "dall_e": "investing in the stock market, lomography",
         "chapter_title": "Stonks",
     },
     {
         "activity": "playing old nintendo games",
         "bro_list": ["JP", "Kris"],
-        "dall_e": "playing old nintendo games",
+        "dall_e": "playing old nintendo games as a retro illustration",
         "chapter_title": "8-bit Adventures",
     },
     {
         "activity": "jumping on the trampoline",
         "bro_list": ["JP", "Kris"],
-        "dall_e": "jumping on the trampoline on fire",
+        "dall_e": "jumping on the trampoline, surrealism",
         "chapter_title": "The Dangers of Childhood",
     },
     {
         "activity": "being shirtless",
         "bro_list": ["JP", "Kris", "Bilinski", "Bobby", "Matt", "Robert", "Wells"],
-        "dall_e": "being shirtless with eagles flying around",
+        "dall_e": "being shirtless with eagles flying around, ultra-wide lens photograph",
         "chapter_title": "FREEDOM",
     },
     {
         "activity": "smoking weed",
         "bro_list": ["JP", "Bobby", "Robert"],
-        "dall_e": "smoking and laughing",
+        "dall_e": "smoking and laughing, double-exposure with laughing faces",
         "chapter_title": "At 30,000 Ft",
     },
     {
         "activity": "slaying a beast",
         "bro_list": None,
-        "dall_e": "hunting aliens",
+        "dall_e": "hunting a huge beast, black and white security footage",
         "chapter_title": "The Great Hunt",
     },
     {
         "activity": "playing slot machines",
         "bro_list": ["JP", "Kris", "Bilinski"],
-        "dall_e": "playing slot machines at the casino",
+        "dall_e": "playing slot machines at the casino, daguerrotype",
         "chapter_title": "Grinding",
     },
     {
         "activity": "drinking and driving",
         "bro_list": ["JP", "Kris", "Bilinski", "Bobby", "Matt", "Robert", "Wells"],
-        "dall_e": "drinking in the car",
+        "dall_e": "drinking in the car, photo from a disposable camera",
         "chapter_title": "Road Sodes",
     },
     {
         "activity": "getting nothing done",
         "bro_list": None,
-        "dall_e": "staring at himself in the mirror",
+        "dall_e": "staring at himself in the mirror, fish eye lens",
         "chapter_title": "Fruitless Labor",
+    },
+    {
+        "activity": "wiping a crack back to front",
+        "bro_list": ["Bobby"],
+        "dall_e": "sitting on a toilet, macro photography",
+        "chapter_title": "C2S",
     },
 ]
 
@@ -339,7 +345,7 @@ chat_response = openai.Completion.create(
 # DALL-E prompt
 
 # paint it
-dalle_prompt = "a painting of " + theme + " with John (brown hair, brown eyes, with a beard)" + bro_dalle_text + " " + activity_dict["dall_e"]
+dalle_prompt = theme + " with John (brown hair, brown eyes, with a beard)" + bro_dalle_text + " " + activity_dict["dall_e"]
 
 print(dalle_prompt)
 
