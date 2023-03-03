@@ -321,7 +321,7 @@ starting_verse_number = random.randint(1, 993)
 
 # set your prompt with all variables
 gpt_prompt = (
-    "Tell me an overly descriptive story about John "
+    "Tell me an overly descriptive story (using old timey english) about John "
     + activity_dict["activity"]
     + bro_gpt_text
     + " with the theme of "
@@ -331,19 +331,24 @@ gpt_prompt = (
     + " sentences. "
     + "Number each sentence, starting with "
     + str(starting_verse_number)
-    + ". For example, "
+    + "Add a new line after each senetence. For example, "
     + str(starting_verse_number)
-    + ": Your first sentence goes here."
+    + ": Your first sentence goes here.\n\n"
 )
 
 print(gpt_prompt)
 
 # Ask ChatGPT your question
-chat_response = openai.Completion.create(
-    engine="text-davinci-003", prompt=gpt_prompt, temperature=0.75, max_tokens=2048
+chat_response = openai.ChatCompletion.create(
+    model="gpt-3.5-turbo", 
+    messages=[
+        {"role": "system", "content": "You are an author and a poet writing a biography."},
+        {"role": "user", "content": gpt_prompt}
+    ],
+    temperature=0.75
 )
-# DALL-E prompt
 
+# DALL-E prompt
 # paint it
 dalle_prompt = theme + " with John (brown hair, brown eyes, with a beard)" + bro_dalle_text + " " + activity_dict["dall_e"]
 
@@ -403,7 +408,7 @@ slack_response = client.send(
         {"type": "divider"},
         {
             "type": "section",
-            "text": {"type": "mrkdwn", "text": chat_response["choices"][0]["text"]},
+            "text": {"type": "mrkdwn", "text": chat_response['choices'][0]['message'].get("content")},
         },
         {
             "type": "image",
