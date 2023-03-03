@@ -321,7 +321,7 @@ starting_verse_number = random.randint(1, 993)
 
 # set your prompt with all variables
 gpt_prompt = (
-    "Tell me an overly descriptive story (using old timey english) about John "
+    "Tell me an overly descriptive story (using old timey english with archaic words and phrases or elaborate metaphors) about John "
     + activity_dict["activity"]
     + bro_gpt_text
     + " with the theme of "
