@@ -350,7 +350,7 @@ chat_response = openai.ChatCompletion.create(
 
 # DALL-E prompt
 # paint it
-dalle_prompt = theme + " with John (brown hair, brown eyes, with a beard)" + bro_dalle_text + " " + activity_dict["dall_e"]
+dalle_prompt = "An image of " + theme + " with John (brown hair, brown eyes, with a beard)" + bro_dalle_text + " " + activity_dict["dall_e"]
 
 print(dalle_prompt)
 
