@@ -179,7 +179,7 @@ activities_list = [
     },
     {
         "activity": "delivering packages",
-        "bro_list": None,
+        "bro_list": ["Amy"],
         "dall_e": "delivering packages to beautiful women, surrealism",
         "chapter_title": "Tracking Numbers",
     },
@@ -250,7 +250,7 @@ activities_list = [
         "chapter_title": "At 30,000 Ft",
     },
     {
-        "activity": "slaying a beast",
+        "activity": "slaying a beast named Amy",
         "bro_list": None,
         "dall_e": "hunting a huge beast, black and white security footage",
         "chapter_title": "The Great Hunt",
