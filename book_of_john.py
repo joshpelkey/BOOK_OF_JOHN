@@ -331,7 +331,7 @@ gpt_prompt = (
     + " sentences. "
     + "Number each sentence, starting with "
     + str(starting_verse_number)
-    + "Add a new line after each senetence. For example, "
+    + ". Add a new line after each senetence. For example, "
     + str(starting_verse_number)
     + ": Your first sentence goes here.\n\n"
 )
