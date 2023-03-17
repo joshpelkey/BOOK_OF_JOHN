@@ -279,6 +279,18 @@ activities_list = [
         "dall_e": "sitting on a toilet, macro photography",
         "chapter_title": "C2S",
     },
+    {
+        "activity": "chillin in a hot tub",
+        "bro_list": ["JP", "Kris", "Bilinski", "Bobby", "Matt", "Robert", "Wells"],
+        "dall_e": "sitting in a hot tub, cartoon drawing",
+        "chapter_title": "Hot Tub Tech 2",
+    },
+    {
+        "activity": "celebrating",
+        "bro_list": ["JP", "Kris", "Bilinski", "Bobby", "Matt", "Robert", "Wells"],
+        "dall_e": "drinking beers at sierra nevada, black and white",
+        "chapter_title": "Celebrate",
+    },
 ]
 
 # pick a random emotion
