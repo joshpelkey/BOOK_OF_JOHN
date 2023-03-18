@@ -291,6 +291,12 @@ activities_list = [
         "dall_e": "drinking beers at sierra nevada, black and white",
         "chapter_title": "Celebrate",
     },
+    {
+        "activity": "grilling a ny strip",
+        "bro_list": ["JP", "Kris", "Bilinski", "Bobby", "Matt", "Robert", "Wells"],
+        "dall_e": "grilling steaks, high contrast",
+        "chapter_title": "MEAT",
+    },
 ]
 
 # pick a random emotion
