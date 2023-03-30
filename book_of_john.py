@@ -174,7 +174,7 @@ activities_list = [
     {
         "activity": "throwing dice",
         "bro_list": ["JP", "Kris", "Bilinski"],
-        "dall_e": "throwing dice at the craps table, digital art",
+        "dall_e": "throwing dice at the casino table, digital art",
         "chapter_title": "Come 69",
     },
     {
