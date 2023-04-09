@@ -17,15 +17,12 @@ home_dir = keys.home_dir
 
 # you're path for image
 img_path1 = keys.img_path1
-img_path2 = keys.img_path2
 
 # slack bot token
 bot_token = keys.bot_token
 
 # Authenticate with OpenAI using your API key
 openai.api_key = keys.openai_api_key
-
-client = WebClient(token=bot_token)
 
 # no args, post to prod
 if len(sys.argv) < 2:
@@ -143,6 +140,13 @@ bro_dict = {
             {
               "name": "Wells",
               "hair": "short brown",
+              "eyes": "brown",
+              "beard": False 
+            },
+        "Amy": 
+            {
+              "name": "Amy",
+              "hair": "long blonde",
               "eyes": "brown",
               "beard": False 
             },
@@ -380,25 +384,12 @@ dalle_chat_response1 = openai.ChatCompletion.create(
     model="gpt-3.5-turbo", 
     messages=[
         {"role": "assistant", "content": chat_response['choices'][0]['message'].get("content")},
-        {"role": "user", "content": "Create an image for the beginning of the provided story. \
+        {"role": "user", "content": "Create an image for summary of the provided story. \
             John is a middle-aged man with brown hair and a brown beard " 
             + bro_dalle_text \
             + " . The general tone is " + theme \
-            + " . Only provide the prompt, no other context. The prompt should be no more than 25 words and include hair, beard, and eye color."},
+            + " . Only provide the prompt, no other context. The prompt should be no more than 25 words and include hair, beard, and eye color. Pick a random art style."},
 
-    ],
-    temperature=0.75
-)
-
-# ask for a dalle prompt 2
-dalle_chat_response2 = openai.ChatCompletion.create(
-    model="gpt-3.5-turbo", 
-    messages=[
-        {"role": "assistant", "content": chat_response['choices'][0]['message'].get("content")},
-        {"role": "user", "content": "Create an image for the end of the provided story. \
-            John is a middle-aged man with brown hair and a brown beard " 
-            + bro_dalle_text \
-            + " . Only provide the prompt, no other context. The prompt should be no more than 25 words and include hair, beard, and eye color."},
     ],
     temperature=0.75
 )
@@ -407,7 +398,6 @@ dalle_chat_response2 = openai.ChatCompletion.create(
 # print stuffs to check
 print("---- dalle prompts ----")
 print(dalle_chat_response1['choices'][0]['message'].get("content"))
-print(dalle_chat_response2['choices'][0]['message'].get("content"))
 
 # generate a dope DALL-E image
 dalle_response1 = openai.Image.create(prompt=dalle_chat_response1['choices'][0]['message'].get("content"), size="256x256")
@@ -418,69 +408,19 @@ img_data1 = requests.get(image_url1).content
 with open(home_dir  + img_path1, "wb") as handler:
     handler.write(img_data1)
 
-#imgur1 = subprocess.run(
-#    [home_dir + "/.local/bin/imgur-uploader", home_dir + img_path],
-#    stdout=subprocess.PIPE,
-#)
+imgur1 = subprocess.run(
+    [home_dir + "/.local/bin/imgur-uploader", home_dir + img_path1],
+    stdout=subprocess.PIPE,
+)
 
-#extractor1 = URLExtract()
-#imgur_str1 = str(imgur1)
-#url1 = extractor1.find_urls(imgur_str1)
+extractor1 = URLExtract()
+imgur_str1 = str(imgur1)
+url1 = extractor1.find_urls(imgur_str1)
 
-#clean_url1 = url1[0][:-4]
+clean_url1 = url1[0][:-4]
 
 with open(home_dir + img_path1, 'rb') as f:
     img1 = f.read()
-
-perma1={}
-try:
-    perma1 = client.files_upload(
-                content = img1,
-                filename = "book_of_john1.png",
-                filetype = "png",
-             )
-except SlackApiError as e:
-    print("error uploading file1")
-
-
-# get the second image and store it on imgur
-# sure yeah there is a way better way to organize this. you want to fight about it? chatgpt will refactor this for me later.
-
-dalle_response2 = openai.Image.create(prompt=dalle_chat_response2['choices'][0]['message'].get("content"), size="256x256")
-image_url2 = dalle_response2["data"][0]["url"]
-
-img_data2 = requests.get(image_url2).content
-with open(home_dir  + img_path2, "wb") as handler:
-    handler.write(img_data2)
-
-#imgur2 = subprocess.run(
-#    [home_dir + "/.local/bin/imgur-uploader", home_dir + img_path],
-#    stdout=subprocess.PIPE,
-#)
-
-#extractor2 = URLExtract()
-#imgur_str2 = str(imgur2)
-#url2 = extractor2.find_urls(imgur_str2)
-
-#clean_url2 = url2[0][:-4]
-
-with open(home_dir + img_path2, 'rb') as f:
-    img2 = f.read()
-
-perma2={}
-try:
-    perma2 = client.files_upload(
-                content = img2,
-                filename = "book_of_john2.png",
-                filetype = "png",
-             )
-except SlackApiError as e:
-    print("error uploading file2")
-
-print(perma1['file']['permalink'])
-print(perma2['file']['permalink'])
-print(perma1)
-print(perma2)
 
 # Send the response to the incoming Slack webhook
 slack_response = webhook_client.send(
@@ -519,19 +459,21 @@ slack_response = webhook_client.send(
         },
         {"type": "divider"},
         {
-            "type": "section",
-            "text": {"type": "mrkdwn", "text": "<" + perma1['file']['permalink'] + "| ><" + perma2['file']['permalink'] + "| >"},
+            "type": "image",
+            "title": {
+                "type": "plain_text",
+                "text": "["
+                + theme.capitalize()
+                + " - Chapter "
+                + str(activity_number + 1)
+                + ": "
+                + activity_dict["chapter_title"]
+                + "]",
+                "emoji": True,
+            },
+            "image_url": clean_url1,
+            "alt_text": dalle_chat_response1['choices'][0]['message'].get("content"),
         },
-#        {
-#            "type": "image",
-#            "image_url": clean_url1,
-#            "alt_text": dalle_chat_response1['choices'][0]['message'].get("content"),
-#        },
-#        {
-#            "type": "image",
-#            "image_url": clean_url2,
-#            "alt_text": dalle_chat_response2['choices'][0]['message'].get("content"),
-#        },
     ],
 )
 
@@ -540,4 +482,3 @@ print(chat_response)
 
 print("---- dalle responses ----")
 print(dalle_response1)
-print(dalle_response2)
