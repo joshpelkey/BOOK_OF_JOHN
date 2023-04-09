@@ -388,7 +388,7 @@ dalle_chat_response1 = openai.ChatCompletion.create(
             John is a middle-aged man with brown hair and a brown beard " 
             + bro_dalle_text \
             + " . The general tone is " + theme \
-            + " . Only provide the prompt, no other context. The prompt should be no more than 25 words and include hair, beard, and eye color. Pick a random art style."},
+            + " . Only provide the prompt, no other context. The prompt should be no more than 25 words and include hair, beard, and eye color. Pick a random art style or choose a specific camera file like kodak gold 200."},
 
     ],
     temperature=0.75
