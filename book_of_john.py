@@ -336,7 +336,7 @@ if bros:
     if(bro['beard']):
         bro_dalle_text = " with his bro " + bro['name'] + " (" + bro['hair'] + " hair, " + bro['eyes'] + " eyes, with beard)"
     else:
-        bro_dalle_text = " with his bro " + bro['name'] + " (" + bro['hair'] + " hair, " + bro['eyes'] + " eyes, no beard)"
+        bro_dalle_text = " with his bro " + bro['name'] + " (" + bro['hair'] + " hair, " + bro['eyes'] + " eyes, clean-shaven)"
 
 else:
     # john is alone
