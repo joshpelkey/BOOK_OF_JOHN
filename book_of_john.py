@@ -90,6 +90,7 @@ bro_dict = {
 
         "JP": 
             {
+              "sex": "male",
               "name": "JP",
               "hair": "blonde",
               "eyes": "blue",
@@ -98,6 +99,7 @@ bro_dict = {
 
         "Kris": 
             {
+              "sex": "male",
               "name": "Kris",
               "hair": "blonde",
               "eyes": "blue",
@@ -106,6 +108,7 @@ bro_dict = {
 
         "Bilinski": 
             {
+              "sex": "male",
               "name": "Bilinski",
               "hair": "blonde",
               "eyes": "blue",
@@ -114,6 +117,7 @@ bro_dict = {
 
         "Bobby": 
             {
+              "sex": "male",
               "name": "Bobby",
               "hair": "long brown",
               "eyes": "brown",
@@ -122,6 +126,7 @@ bro_dict = {
 
         "Matt": 
             {
+              "sex": "male",
               "name": "Matt",
               "hair": "short brown",
               "eyes": "brown",
@@ -130,6 +135,7 @@ bro_dict = {
 
         "Robert": 
             {
+              "sex": "male",
               "name": "Robert",
               "hair": "red",
               "eyes": "brown",
@@ -138,6 +144,7 @@ bro_dict = {
 
         "Wells": 
             {
+              "sex": "male",
               "name": "Wells",
               "hair": "short brown",
               "eyes": "brown",
@@ -145,6 +152,7 @@ bro_dict = {
             },
         "Amy": 
             {
+              "sex": "female",
               "name": "Amy",
               "hair": "long blonde",
               "eyes": "brown",
@@ -334,9 +342,9 @@ if bros:
 
     # see if bros have a beard for painting
     if(bro['beard']):
-        bro_dalle_text = " with his bro " + bro['name'] + " (" + bro['hair'] + " hair, " + bro['eyes'] + " eyes, with beard)"
+        bro_dalle_text = " with his bro " + bro['name'] + " (" + bro['sex'] + ", " + bro['hair'] + " hair, " + bro['eyes'] + " eyes, with beard)"
     else:
-        bro_dalle_text = " with his bro " + bro['name'] + " (" + bro['hair'] + " hair, " + bro['eyes'] + " eyes, clean-shaven)"
+        bro_dalle_text = " with his bro " + bro['name'] + " (" + bro['sex'] + ", " + bro['hair'] + " hair, " + bro['eyes'] + " eyes, clean-shaven)"
 
 else:
     # john is alone
@@ -389,7 +397,9 @@ dalle_chat_response1 = openai.ChatCompletion.create(
             John is a middle-aged man with brown hair and a brown beard " 
             + bro_dalle_text \
             + " . The general tone is " + theme \
-            + " . Only provide the prompt, no other context. The prompt should be no more than 25 words and include facial appearance. Pick a random art style or choose a specific camera film and lighting."},
+            + " . Only provide the prompt, no other context. The prompt should be no more than 25 words "
+            + "and include a description of appearance. For example, John (male, brown hair, beard). Pick "
+            + "a random art style or choose a specific camera film and lighting."},
 
     ],
     temperature=1.1
