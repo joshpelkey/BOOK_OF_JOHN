@@ -351,7 +351,8 @@ starting_verse_number = random.randint(1, 993)
 
 # set your prompt with all variables
 gpt_prompt = (
-    "Tell me an overly descriptive story (using old timey english with archaic words and phrases or elaborate metaphors) about John "
+    "Tell me an overly descriptive story (using old timey english with archaic words and phrases or elaborate metaphors) about John " 
+    + "who is either drunk or high, "
     + activity_dict["activity"]
     + bro_gpt_text
     + " with the theme of "
@@ -376,7 +377,7 @@ chat_response = openai.ChatCompletion.create(
         {"role": "system", "content": "You are an author and a poet writing a biography."},
         {"role": "user", "content": gpt_prompt}
     ],
-    temperature=0.75
+    temperature=1.1
 )
 
 # ask for a dalle prompt 1
@@ -391,7 +392,7 @@ dalle_chat_response1 = openai.ChatCompletion.create(
             + " . Only provide the prompt, no other context. The prompt should be no more than 25 words and include facial appearance. Pick a random art style or choose a specific camera film and lighting."},
 
     ],
-    temperature=0.75
+    temperature=1.1
 )
 
 
