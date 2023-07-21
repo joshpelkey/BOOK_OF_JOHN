@@ -359,7 +359,7 @@ starting_verse_number = random.randint(1, 993)
 
 # set your prompt with all variables
 gpt_prompt = (
-    "Tell me an overly descriptive story (using old timey english with archaic words and phrases or elaborate metaphors) about John " 
+    "Tell me a descriptive story (using old timey english with archaic words and phrases or elaborate metaphors) about John " 
     + "who is either drunk or high, "
     + activity_dict["activity"]
     + bro_gpt_text
@@ -367,7 +367,7 @@ gpt_prompt = (
     + theme
     + " in "
     + str(number_verses)
-    + " sentences. "
+    + " sentences. Make it comical and profane. "
     + "Number each sentence, starting with "
     + str(starting_verse_number)
     + ". Add a new line after each senetence. For example, "
