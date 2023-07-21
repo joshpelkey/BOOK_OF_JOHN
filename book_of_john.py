@@ -198,7 +198,7 @@ activities_list = [
         "chapter_title": "Come 69",
     },
     {
-        "activity": "delivering packages. use thinly veiled sexual innuendo",
+        "activity": "delivering packages",
         "bro_list": ["Amy"],
         "dall_e": "delivering packages to beautiful women, surrealism",
         "chapter_title": "Tracking Numbers",
@@ -270,7 +270,7 @@ activities_list = [
         "chapter_title": "At 30,000 Ft",
     },
     {
-        "activity": "slaying a beast named Amy. use thinly veiled sexual innuendo",
+        "activity": "slaying a beast named Amy",
         "bro_list": None,
         "dall_e": "hunting a huge beast, black and white security footage",
         "chapter_title": "The Great Hunt",
@@ -359,7 +359,7 @@ starting_verse_number = random.randint(1, 993)
 
 # set your prompt with all variables
 gpt_prompt = (
-    "Tell me a descriptive story (using old timey english with archaic words and phrases or elaborate metaphors) about John " 
+    "Tell me a descriptive story about John " 
     + "who is either drunk or high, "
     + activity_dict["activity"]
     + bro_gpt_text
@@ -367,7 +367,7 @@ gpt_prompt = (
     + theme
     + " in "
     + str(number_verses)
-    + " sentences. Make it comical and profane. "
+    + " sentences. Make it comical and profane, loaded with subtle innuendo and errotic tension that you might find in a romance novel from Danielle Steel. "
     + "Number each sentence, starting with "
     + str(starting_verse_number)
     + ". Add a new line after each senetence. For example, "
