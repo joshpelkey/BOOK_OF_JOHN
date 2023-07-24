@@ -333,12 +333,14 @@ activity_dict = activities_list[activity_number]
 
 # getting a bro (or not) to bro with
 bros = activity_dict["bro_list"]
+
 if bros:
     bro_key = random.choice(bros)
     bro = bro_dict[bro_key]
 
     # with his bro
     bro_gpt_text = " with his bro " + bro['name']
+    bro_attr_text = "Make subtle refereneces to a romantic, intellectual, or physical attraction between John and " + bro['name'] + " who share a strong emotional bond. "
 
     # see if bros have a beard for painting
     if(bro['beard']):
@@ -350,6 +352,7 @@ else:
     # john is alone
     bro_gpt_text = ""
     bro_dalle_text = ""
+    bro_attr_text = ""
 
 
 
@@ -367,7 +370,8 @@ gpt_prompt = (
     + theme
     + " in "
     + str(number_verses)
-    + " sentences. Make it comical and profane, loaded with subtle innuendo and errotic tension that you might find in a romance novel from Danielle Steel. "
+    + " sentences. "
+    + bro_attr_text
     + "Number each sentence, starting with "
     + str(starting_verse_number)
     + ". Add a new line after each senetence. For example, "
@@ -397,6 +401,7 @@ dalle_chat_response1 = openai.ChatCompletion.create(
             John is a middle-aged man with brown hair and a brown beard " 
             + bro_dalle_text \
             + " . The general tone is " + theme \
+            + " . Add a random element to the image that makes it either funny or mind-bending" 
             + " . Only provide the prompt, no other context. The prompt should be no more than 25 words "
             + "and include a description of appearance. For example, John (male, brown hair, beard). Pick "
             + "a random art style or choose a specific camera film and lighting."},
