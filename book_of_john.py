@@ -340,7 +340,6 @@ if bros:
 
     # with his bro
     bro_gpt_text = " with his bro " + bro['name']
-    bro_attr_text = "Make subtle refereneces to a romantic, intellectual, or physical attraction between John and " + bro['name'] + " who share a strong emotional bond. "
 
     # see if bros have a beard for painting
     if(bro['beard']):
@@ -352,8 +351,6 @@ else:
     # john is alone
     bro_gpt_text = ""
     bro_dalle_text = ""
-    bro_attr_text = ""
-
 
 
 # random number of verses and starting verse
@@ -362,16 +359,15 @@ starting_verse_number = random.randint(1, 993)
 
 # set your prompt with all variables
 gpt_prompt = (
-    "Tell me a descriptive story about John " 
-    + "who is either drunk or high, "
+    "You are a the greatest storyteller in the world. Tell me a descriptive story about John. " 
+    + "John loves to drink and loves to gamble. Tell me about when John was "
     + activity_dict["activity"]
     + bro_gpt_text
     + " with the theme of "
     + theme
-    + " in "
+    + ". Make sure to incorporate a cocktail and describe its ingredients. The cocktail should be in theme with the story. Use exactly "
     + str(number_verses)
-    + " sentences. "
-    + bro_attr_text
+    + " sentences.  "
     + "Number each sentence, starting with "
     + str(starting_verse_number)
     + ". Add a new line after each senetence. For example, "
@@ -397,14 +393,15 @@ dalle_chat_response1 = openai.ChatCompletion.create(
     model="gpt-3.5-turbo", 
     messages=[
         {"role": "assistant", "content": chat_response['choices'][0]['message'].get("content")},
-        {"role": "user", "content": "Create an image for summary of the provided story. \
+        {"role": "user", "content": "Create an image for what might happen next. \
             John is a middle-aged man with brown hair and a brown beard " 
             + bro_dalle_text \
-            + " . The general tone is " + theme \
-            + " . Add a random element to the image that makes it either funny or mind-bending" 
-            + " . Only provide the prompt, no other context. The prompt should be no more than 25 words "
-            + "and include a description of appearance. For example, John (male, brown hair, beard). Pick "
-            + "a random art style or choose a specific camera film and lighting."},
+            + ". The general tone is " + theme \
+            + ". Include a description of appearance. For example, John (male, brown hair, beard)... "
+            + "Choose a random art style or choose a specific camera film and lighting. "
+            + "Only provide the prompt, no other context. "
+            + "The prompt should be no more than 25 words and include appearance."
+            },
 
     ],
     temperature=1.1
