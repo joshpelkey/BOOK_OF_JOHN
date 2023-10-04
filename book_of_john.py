@@ -407,6 +407,19 @@ dalle_chat_response1 = openai.ChatCompletion.create(
     temperature=1.1
 )
 
+# mix me up a drink
+drink_response = openai.ChatCompletion.create(
+    model="gpt-3.5-turbo", 
+    messages=[
+        {"role": "system", "content": "You are a mixologist. You mix up the most incredble cocktails."},
+        {"role": "user", "content": "Craft a cocktail recipe using the provided story as insipration. Give the cocktail a name and present"
+                                    + " the output as you find in a recipe book. Only provide the drink name, recipe, and instructions. Provide the output in markdown formatting.}"},
+        {"role": "assistant", "content": chat_response['choices'][0]['message'].get("content")}
+    ],
+    temperature=1.1
+)
+
+
 
 # print stuffs to check
 print("---- dalle prompts ----")
@@ -487,6 +500,11 @@ slack_response = webhook_client.send(
             "image_url": clean_url1,
             "alt_text": dalle_chat_response1['choices'][0]['message'].get("content"),
         },
+        {"type": "divider"},
+        {
+            "type": "section",
+            "text": {"type": "mrkdwn", "text": drink_response['choices'][0]['message'].get("content")},
+        },
     ],
 )
 
@@ -495,3 +513,9 @@ print(chat_response)
 
 print("---- dalle responses ----")
 print(dalle_response1)
+
+print("---- slack responses ----")
+print(slack_response)
+
+print("---- drink responses ----")
+print(drink_response)
