@@ -365,7 +365,7 @@ gpt_prompt = (
     + bro_gpt_text
     + " with the theme of "
     + theme
-    + ". Make sure to incorporate a cocktail and describe its ingredients. The cocktail should be in theme with the story. Use exactly "
+    + ". Make sure to incorporate a cocktail which should be in theme with the story. Use exactly "
     + str(number_verses)
     + " sentences.  "
     + "Number each sentence, starting with "
@@ -413,7 +413,7 @@ drink_response = openai.ChatCompletion.create(
     messages=[
         {"role": "system", "content": "You are a mixologist. You mix up the most incredble cocktails."},
         {"role": "user", "content": "Craft a cocktail recipe using the provided story as insipration. Give the cocktail a name and present"
-                                    + " the output as you find in a recipe book. Only provide the drink name, recipe, and instructions. Provide the output in markdown formatting.}"},
+                                    + " the output as you find in a recipe book. Only provide the drink name, recipe, and instructions. Do not provide any links. Provide the output in markdown formatting.}"},
         {"role": "assistant", "content": chat_response['choices'][0]['message'].get("content")}
     ],
     temperature=1.1
