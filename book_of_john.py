@@ -158,12 +158,20 @@ bro_dict = {
               "eyes": "brown",
               "beard": False 
             },
+        "Brian": 
+            {
+              "sex": "male",
+              "name": "Brian",
+              "hair": "short brown",
+              "eyes": "brown",
+              "beard": True 
+            },
 }
 
 activities_list = [
     {
         "activity": "drinking whiskey",
-        "bro_list": ["JP", "Kris", "Bilinski", "Bobby", "Matt", "Robert", "Wells"],
+        "bro_list": ["JP", "Kris", "Bilinski", "Bobby", "Matt", "Robert", "Wells", "Brian"],
         "dall_e": "drinking whiskey, photorealistic",
         "chapter_title": "Whiskey",
     },
@@ -181,7 +189,7 @@ activities_list = [
     },
     {
         "activity": "watching sports",
-        "bro_list": ["JP", "Kris", "Bilinski"],
+        "bro_list": ["JP", "Kris", "Bilinski", "Brian"],
         "dall_e": "watching sports, as lego blocks",
         "chapter_title": "The Sport",
     },
@@ -198,38 +206,38 @@ activities_list = [
         "chapter_title": "Come 69",
     },
     {
-        "activity": "delivering packages",
-        "bro_list": ["Amy"],
+        "activity": "delivering a huge package to Amy",
+        "bro_list": None,
         "dall_e": "delivering packages to beautiful women, surrealism",
         "chapter_title": "Tracking Numbers",
     },
     {
         "activity": "making cocktails",
-        "bro_list": ["JP", "Kris", "Bilinski", "Bobby", "Matt", "Robert", "Wells"],
+        "bro_list": ["JP", "Kris", "Bilinski", "Bobby", "Matt", "Robert", "Wells", "Brian"],
         "dall_e": "mixing drinks at an enormous bar, lomography",
         "chapter_title": "Mixology",
     },
     {
         "activity": "drinking beers",
-        "bro_list": ["JP", "Kris", "Bilinski", "Bobby", "Matt", "Robert", "Wells"],
+        "bro_list": ["JP", "Kris", "Bilinski", "Bobby", "Matt", "Robert", "Wells", "Brian"],
         "dall_e": "drinking with hundreds of empty cans around, drone photography",
         "chapter_title": "Drinking, Part 2",
     },
     {
         "activity": "enjoying craft beer",
-        "bro_list": ["JP", "Kris", "Bilinski", "Bobby", "Matt", "Robert", "Wells"],
+        "bro_list": ["JP", "Kris", "Bilinski", "Bobby", "Matt", "Robert", "Wells", "Brian"],
         "dall_e": "drinking at a formal bar with classy attire, fashion photography",
         "chapter_title": "Fancy Drink",
     },
     {
         "activity": "investing in cryptocurrency",
-        "bro_list": ["JP", "Bilinski"],
+        "bro_list": ["JP", "Bilinski", "Brian"],
         "dall_e": "typing madly on a keyboard, fish eye lens",
         "chapter_title": "Examination of Cryptocurrency Microeconomics",
     },
     {
         "activity": "drinking wine",
-        "bro_list": ["JP", "Kris", "Bilinski", "Bobby", "Matt", "Robert", "Wells"],
+        "bro_list": ["JP", "Kris", "Bilinski", "Bobby", "Matt", "Robert", "Wells", "Brian"],
         "dall_e": "drinking wine under the stars, long exposure slow shutter speed",
         "chapter_title": "Side Wine",
     },
@@ -247,19 +255,19 @@ activities_list = [
     },
     {
         "activity": "playing old nintendo games",
-        "bro_list": ["JP", "Kris"],
+        "bro_list": ["JP", "Kris", "Brian"],
         "dall_e": "playing old nintendo games as a retro illustration",
         "chapter_title": "8-bit Adventures",
     },
     {
         "activity": "jumping on the trampoline",
-        "bro_list": ["JP", "Kris"],
+        "bro_list": ["JP", "Kris", "Brian"],
         "dall_e": "jumping on the trampoline, surrealism",
         "chapter_title": "The Dangers of Childhood",
     },
     {
         "activity": "being shirtless",
-        "bro_list": ["JP", "Kris", "Bilinski", "Bobby", "Matt", "Robert", "Wells"],
+        "bro_list": ["JP", "Kris", "Bilinski", "Bobby", "Matt", "Robert", "Wells", "Brian"],
         "dall_e": "being shirtless with eagles flying around, ultra-wide lens photograph",
         "chapter_title": "FREEDOM",
     },
@@ -283,7 +291,7 @@ activities_list = [
     },
     {
         "activity": "drinking and driving",
-        "bro_list": ["JP", "Kris", "Bilinski", "Bobby", "Matt", "Robert", "Wells"],
+        "bro_list": ["JP", "Kris", "Bilinski", "Bobby", "Matt", "Robert", "Wells", "Brian"],
         "dall_e": "drinking in the car, photo from a disposable camera",
         "chapter_title": "Road Sodes",
     },
@@ -301,7 +309,7 @@ activities_list = [
     },
     {
         "activity": "chillin in a hot tub",
-        "bro_list": ["JP", "Kris", "Bilinski", "Bobby", "Matt", "Robert", "Wells"],
+        "bro_list": ["JP", "Kris", "Bilinski", "Bobby", "Matt", "Robert", "Wells", "Brian"],
         "dall_e": "sitting in a hot tub, cartoon drawing",
         "chapter_title": "Hot Tub Tech 2",
     },
@@ -313,7 +321,7 @@ activities_list = [
     },
     {
         "activity": "grilling a ny strip",
-        "bro_list": ["JP", "Kris", "Bilinski", "Bobby", "Matt", "Robert", "Wells"],
+        "bro_list": ["JP", "Kris", "Bilinski", "Bobby", "Matt", "Robert", "Wells", "Brian"],
         "dall_e": "grilling steaks, high contrast",
         "chapter_title": "MEAT",
     },
@@ -382,7 +390,7 @@ print(gpt_prompt)
 chat_response = openai.ChatCompletion.create(
     model="gpt-3.5-turbo", 
     messages=[
-        {"role": "system", "content": "You are an author and a poet writing a biography."},
+        {"role": "system", "content": "You are the most prolific story teller of all time. You always leave your readers astonished, bewildered, intrigured, or some othe strong emotion."},
         {"role": "user", "content": gpt_prompt}
     ],
     temperature=1.1
