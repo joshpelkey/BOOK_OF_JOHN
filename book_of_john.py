@@ -91,6 +91,7 @@ bro_dict = {
         "JP": 
             {
               "sex": "male",
+              "sex": "male",
               "name": "JP",
               "hair": "blonde",
               "eyes": "blue",
@@ -373,7 +374,7 @@ gpt_prompt = (
     + bro_gpt_text
     + " with the theme of "
     + theme
-    + ". Make sure to incorporate a cocktail which should be in theme with the story. Use exactly "
+    + ". Make sure to incorporate a cocktail which should be in theme with the story, but do not give the cocktail a name. Use exactly "
     + str(number_verses)
     + " sentences.  "
     + "Number each sentence, starting with "
@@ -390,7 +391,7 @@ print(gpt_prompt)
 chat_response = openai.chat.completions.create(
     model="gpt-4-1106-preview", 
     messages=[
-        {"role": "system", "content": "You are the most prolific story teller of all time. You always leave your readers astonished, bewildered, intrigured, or some other strong emotion."},
+        {"role": "system", "content": "You are the most prolific story teller of all time. You always leave your readers astonished, bewildered, intrigued, or some other strong emotion."},
         {"role": "user", "content": gpt_prompt}
     ],
     temperature=1
