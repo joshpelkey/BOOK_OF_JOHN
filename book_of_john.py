@@ -387,20 +387,20 @@ print("---- gpt prompt ----")
 print(gpt_prompt)
 
 # Ask ChatGPT your question
-chat_response = openai.ChatCompletion.create(
-    model="gpt-3.5-turbo", 
+chat_response = openai.chat.completions.create(
+    model="gpt-4", 
     messages=[
-        {"role": "system", "content": "You are the most prolific story teller of all time. You always leave your readers astonished, bewildered, intrigured, or some othe strong emotion."},
+        {"role": "system", "content": "You are the most prolific story teller of all time. You always leave your readers astonished, bewildered, intrigured, or some other strong emotion."},
         {"role": "user", "content": gpt_prompt}
     ],
-    temperature=1.1
+    temperature=1
 )
 
-# ask for a dalle prompt 1
-dalle_chat_response1 = openai.ChatCompletion.create(
-    model="gpt-3.5-turbo", 
+
+dalle_chat_response1 = openai.chat.completions.create(
+    model="gpt-4", 
     messages=[
-        {"role": "assistant", "content": chat_response['choices'][0]['message'].get("content")},
+        {"role": "assistant", "content": chat_response.choices[0].message.content},
         {"role": "user", "content": "Create an image for what might happen next. \
             John is a middle-aged man with brown hair and a brown beard " 
             + bro_dalle_text \
@@ -408,34 +408,39 @@ dalle_chat_response1 = openai.ChatCompletion.create(
             + ". Include a description of appearance. For example, John (male, brown hair, beard)... "
             + "Choose a random art style or choose a specific camera film and lighting. "
             + "Only provide the prompt, no other context. "
-            + "The prompt should be no more than 25 words and include appearance."
+            + "The prompt should be no more than 30 words and include each persons physical appearance."
             },
 
     ],
-    temperature=1.1
+    temperature=1
 )
 
 # mix me up a drink
-drink_response = openai.ChatCompletion.create(
-    model="gpt-3.5-turbo", 
+drink_response = openai.chat.completions.create(
+    model="gpt-4", 
     messages=[
         {"role": "system", "content": "You are a mixologist. You mix up the most incredble cocktails."},
         {"role": "user", "content": "Craft a cocktail recipe using the provided story as insipration. Give the cocktail a name and present"
                                     + " the output as you find in a recipe book. Only provide the drink name, recipe, and instructions. Do not provide any links. Provide the output in markdown formatting.}"},
-        {"role": "assistant", "content": chat_response['choices'][0]['message'].get("content")}
+        {"role": "assistant", "content": chat_response.choices[0].message.content}
     ],
-    temperature=1.1
+    temperature=1
 )
 
 
 
 # print stuffs to check
 print("---- dalle prompts ----")
-print(dalle_chat_response1['choices'][0]['message'].get("content"))
+print(dalle_chat_response1.choices[0].message.content)
 
 # generate a dope DALL-E image
-dalle_response1 = openai.Image.create(prompt=dalle_chat_response1['choices'][0]['message'].get("content"), size="256x256")
-image_url1 = dalle_response1["data"][0]["url"]
+dalle_response1 = openai.images.generate(
+        model="dall-e-3",
+        prompt=dalle_chat_response1.choices[0].message.content, 
+        n=1,
+        style="vivid",
+        size="1024x1024")
+image_url1 = dalle_response1.data[0].url
 
 # get the first image and store it on imgur
 img_data1 = requests.get(image_url1).content
@@ -489,7 +494,7 @@ slack_response = webhook_client.send(
         {"type": "divider"},
         {
             "type": "section",
-            "text": {"type": "mrkdwn", "text": chat_response['choices'][0]['message'].get("content")},
+            "text": {"type": "mrkdwn", "text": chat_response.choices[0].message.content},
         },
         {"type": "divider"},
         {
@@ -506,12 +511,12 @@ slack_response = webhook_client.send(
                 "emoji": True,
             },
             "image_url": clean_url1,
-            "alt_text": dalle_chat_response1['choices'][0]['message'].get("content"),
+            "alt_text": dalle_chat_response1.choices[0].message.content,
         },
         {"type": "divider"},
         {
             "type": "section",
-            "text": {"type": "mrkdwn", "text": drink_response['choices'][0]['message'].get("content")},
+            "text": {"type": "mrkdwn", "text": drink_response.choices[0].message.content},
         },
     ],
 )
