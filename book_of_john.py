@@ -84,6 +84,18 @@ emotions = [
     "confusion",
     "anticipation",
     "tranquility",
+    "happiness",
+    "amusement",
+    "absurdity",
+    "whimsy",
+    "outrage",
+    "insanity",
+    "hilarity",
+    "euphoria",
+    "gratitude",
+    "serenity",
+    "bliss",
+    "exhilaration"
 ]
 
 bro_dict = {
@@ -409,7 +421,7 @@ dalle_chat_response1 = openai.chat.completions.create(
             + ". Include a description of appearance. For example, John (male, brown hair, beard)... "
             + "Choose a random art style or choose a specific camera film and lighting. "
             + "Only provide the prompt, no other context. "
-            + "The prompt should be no more than 50 words and include each persons physical appearance."
+            + "The prompt should be no more than 50 words and include each persons physical appearance and clothing."
             },
 
     ],
