@@ -401,7 +401,7 @@ print(gpt_prompt)
 
 # Ask ChatGPT your question
 chat_response = openai.chat.completions.create(
-    model="gpt-4-1106-preview", 
+    model="gpt-4o", 
     messages=[
         {"role": "system", "content": "You are the most prolific story teller of all time. You always leave your readers astonished, bewildered, intrigued, or some other strong emotion."},
         {"role": "user", "content": gpt_prompt}
@@ -411,7 +411,7 @@ chat_response = openai.chat.completions.create(
 
 
 dalle_chat_response1 = openai.chat.completions.create(
-    model="gpt-4-1106-preview", 
+    model="gpt-4o", 
     messages=[
         {"role": "assistant", "content": chat_response.choices[0].message.content},
         {"role": "user", "content": "Create an image for what might happen next. \
@@ -430,7 +430,7 @@ dalle_chat_response1 = openai.chat.completions.create(
 
 # mix me up a drink
 drink_response = openai.chat.completions.create(
-    model="gpt-4-1106-preview", 
+    model="gpt-4o", 
     messages=[
         {"role": "system", "content": "You are a mixologist. You mix up the most incredble cocktails."},
         {"role": "user", "content": "Craft a cocktail recipe using the provided story as insipration. Give the cocktail a name and present"
