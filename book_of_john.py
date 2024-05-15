@@ -414,7 +414,7 @@ dalle_chat_response1 = openai.chat.completions.create(
     model="gpt-4o", 
     messages=[
         {"role": "assistant", "content": chat_response.choices[0].message.content},
-        {"role": "user", "content": "Create an image for what might happen next. \
+        {"role": "user", "content": "Create an image that perfectly captures the climax. \
             John is a middle-aged man with brown hair and a brown beard " 
             + bro_dalle_text \
             + ". The general tone is " + theme \
