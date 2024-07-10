@@ -219,7 +219,7 @@ activities_list = [
         "chapter_title": "Come 69",
     },
     {
-        "activity": "delivering a huge package to Amy",
+        "activity": "delivering a huge, empty package to Amy",
         "bro_list": None,
         "dall_e": "delivering packages to beautiful women, surrealism",
         "chapter_title": "Tracking Numbers",
