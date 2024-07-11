@@ -315,7 +315,7 @@ activities_list = [
         "chapter_title": "Fruitless Labor",
     },
     {
-        "activity": "wiping a crack back to front",
+        "activity": "wiping a crack in the wrong direction, which gets some balls dirty",
         "bro_list": ["Bobby", "Wells"],
         "dall_e": "sitting on a toilet, macro photography",
         "chapter_title": "C2S",
