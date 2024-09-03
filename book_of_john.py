@@ -321,7 +321,7 @@ activities_list = [
     {
         "activity": "advocating for one of bernie sanders' economic, social, or foreign policies",
         "bro_list": None,
-        "chapter_title": "Feel the Bern:wq",
+        "chapter_title": "Feel the Bern",
     },
 ]
 
