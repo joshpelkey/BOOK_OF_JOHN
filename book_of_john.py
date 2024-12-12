@@ -163,7 +163,7 @@ bro_dict = {
               "sex": "male",
               "name": "Wells",
               "hair": "short brown",
-              "eyes": "brown",
+              "eyes": "blue",
               "beard": False 
             },
         "Amy": 
