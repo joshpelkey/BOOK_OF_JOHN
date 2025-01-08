@@ -21,11 +21,11 @@ SLACK_DEV_KEY = keys.slack_dev_key
 
 # Content Styles
 CONTENT_STYLES = {
-    1: "Chronicles",
-    2: "Psalms",
-    3: "Proverbs",
-    4: "Parables",
-    5: "Poetic Addendums",
+    1: "Verses",
+    2: "Psalm",
+    3: "Proverbial Selections",
+    4: "Parable",
+    5: "Poetic Addendum",
     6: "John's Jests"
 }
 
@@ -83,8 +83,8 @@ def get_gpt_prompt(content_style, theme, activity_data, bro_gpt_text, number_ver
         return (
             f"Give me 3 short, insightful proverbs about John's experiences with {theme} "
             f"while {activity_data['activity']}{bro_gpt_text}. "
-            f"Each proverb should be a single, impactful sentence."
-            f"Do not format the output. Just give each sentence a new line."
+            f"Each proverb should be a single, impactful sentence, in quotes"
+            f"Do not number the sentences and put two new lines between each quote."
         )
     elif content_style == 4:  # Parables (Short Story with Moral)
         return (
@@ -101,7 +101,7 @@ def get_gpt_prompt(content_style, theme, activity_data, bro_gpt_text, number_ver
         )
     elif content_style == 6:  # Quips/Jokes
         return (
-            f"Tell me a quip or joke about John's experiences with {theme} "
+            f"Tell me a dirty joke about John's experiences with {theme} "
             f"while {activity_data['activity']}{bro_gpt_text}."
             f"Use no more than 150 words. Do not preface the joke, just tell it."
         )
@@ -138,7 +138,7 @@ def generate_gpt_story(prompt, content_style):
                 {"role": "system", "content": "You are a skilled poet and lyricist."},
                 {"role": "user", "content": prompt}
             ],
-            temperature=0.7  # Lower temperature for more structured output
+            temperature=1  # Lower temperature for more structured output
         )
         return response.choices[0].message.content
 
@@ -149,7 +149,7 @@ def generate_gpt_story(prompt, content_style):
                 {"role": "system", "content": "You are a wise sage who can craft insightful proverbs."},
                 {"role": "user", "content": prompt}
             ],
-            temperature=0.7
+            temperature=1
         )
         return response.choices[0].message.content
 
@@ -160,7 +160,7 @@ def generate_gpt_story(prompt, content_style):
                 {"role": "system", "content": "You are a master storyteller who can weave captivating parables."},
                 {"role": "user", "content": prompt}
             ],
-            temperature=0.8
+            temperature=1
         )
         return response.choices[0].message.content
 
@@ -171,7 +171,7 @@ def generate_gpt_story(prompt, content_style):
                 {"role": "system", "content": "You are a skilled poet."},
                 {"role": "user", "content": prompt}
             ],
-            temperature=0.7
+            temperature=1
         )
         return response.choices[0].message.content
 
@@ -179,10 +179,10 @@ def generate_gpt_story(prompt, content_style):
         response = openai.chat.completions.create(
             model="gpt-4o",
             messages=[
-                {"role": "system", "content": "You are a witty comedian."},
+                {"role": "system", "content": "You are a witty comedian and a wise guy."},
                 {"role": "user", "content": prompt}
             ],
-            temperature=0.8
+            temperature=1
         )
         return "\n".join(response.choices[0].message.content.split("\n"))
 
@@ -225,7 +225,7 @@ def generate_dalle_prompt(story, bro_dalle_text, content_style):
                 {"role": "system", "content": "You are an expert image prompt engineer. "
                                             "Your task is to create a concise and evocative DALL-E prompt "
                                             "based on the provided text, suitable for generating an abstract or symbolic image."},
-                {"role": "user", "content": f"Generate a DALL-E prompt, less than 100 words, for an image that visually represents the mood and themes of: {story}"}
+                {"role": "user", "content": f"Generate a DALL-E prompt, less than 100 words, for an image that visually represents the mood and themes of: {story} {bro_dalle_text}"}
             ],
             temperature=0.7,
         )
@@ -239,7 +239,7 @@ def generate_dalle_prompt(story, bro_dalle_text, content_style):
                 {"role": "system", "content": "You are an expert image prompt engineer. "
                                             "Your task is to create a concise and evocative DALL-E prompt "
                                             "that visually represents the core message of the proverb."},
-                {"role": "user", "content": f"Generate a DALL-E prompt, less than 100 words, for an image that illustrates: {story}"}
+                {"role": "user", "content": f"Generate a DALL-E prompt, less than 100 words, for an image that illustrates: {story} {bro_dalle_text}"}
             ],
             temperature=0.7,
         )
@@ -335,7 +335,7 @@ def upload_image_to_imgur(image_url):
     urls = extractor.find_urls(imgur_str)
     return urls[0][:-4]  # Remove trailing newline character
 
-def send_slack_message(webhook_client, story, theme, activity_data, image_url, cocktail_recipe, content_style):
+def send_slack_message(webhook_client, story, theme, activity_data, image_url, cocktail_recipe, content_style, str_numbers):
     """
     Sends the generated story, image, and recipe to Slack.
 
@@ -361,10 +361,11 @@ def send_slack_message(webhook_client, story, theme, activity_data, image_url, c
                 "type": "context",
                 "elements": [
                     {
-                        "text": f"Book of {theme.capitalize()} | _Chapter "
+                        "text": f"Book of {theme.capitalize()} | Chapter "
                                 f"{activity_data['chapter_number']}: "
                                 f"{activity_data['chapter_title']} | "
-                                f"{CONTENT_STYLES[content_style]}_",
+                                f"{CONTENT_STYLES[content_style]} "
+                                f"{str_numbers}",
                         "type": "mrkdwn",
                     }
                 ],
@@ -451,7 +452,7 @@ def send_slack_message(webhook_client, story, theme, activity_data, image_url, c
         elif content_style == 2:
             intro_text = "A new psalm has been revealed..."
         elif content_style == 3:
-            intro_text = "A fresh proverb has been unearthed..."
+            intro_text = "Fresh proverbs have been unearthed..."
         elif content_style == 4:
             intro_text = "A new parable has emerged..."
         elif content_style == 5:
@@ -800,16 +801,22 @@ if __name__ == "__main__":
         bro_gpt_text = ""
         bro_dalle_text = ""
 
+
     # Random number of verses and starting verse (if applicable)
+    starting_verse = None
+    number_verses = None
     if content_style == 1:  # Book/Chapter
+        starting_verse = random.randint(1, 995)
         number_verses = random.randint(2, 4)
-        starting_verse_number = random.randint(1, 995)
-    else:
-        number_verses = None
-        starting_verse_number = None
+        ending_verse = starting_verse + number_verses
+        str_numbers = f"{starting_verse} - {ending_verse}"
+    elif content_style in [2, 4, 5, 6]: #Psalm/Parable/Peom/Jest
+        str_numbers = random.randint(1, 10000)
+    elif content_style == 3: #Proverb
+        str_numbers = f"{random.randint(1, 100), random.randint(200, 500), random.randint(4000, 10000)}" 
 
     # Generate GPT prompt
-    gpt_prompt = get_gpt_prompt(content_style, theme, activity_data, bro_gpt_text, number_verses, starting_verse_number)
+    gpt_prompt = get_gpt_prompt(content_style, theme, activity_data, bro_gpt_text, number_verses, starting_verse)
 
     # Generate GPT story
     story = generate_gpt_story(gpt_prompt, content_style)
@@ -833,4 +840,4 @@ if __name__ == "__main__":
     webhook_client = get_webhook_client(is_dev_mode)
 
     # Send Slack message
-    send_slack_message(webhook_client, story, theme, activity_data, imgur_url, cocktail_recipe, content_style)
+    send_slack_message(webhook_client, story, theme, activity_data, imgur_url, cocktail_recipe, content_style, str_numbers)
