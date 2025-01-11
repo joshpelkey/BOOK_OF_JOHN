@@ -75,7 +75,7 @@ def get_gpt_prompt(content_style, theme, activity_data, bro_gpt_text, number_ver
     elif content_style == 2:  # Psalms (Song Lyrics)
         return (
             f"Write a song lyric about John experiencing {theme} while {activity_data['activity']}{bro_gpt_text}. "
-            f"Incorporate a cocktail inspired by the theme. "
+            f"Incorporate a cocktail inspired by the theme but do not give the cocktail a name. "
             f"The lyrics should have a poetic and reflective tone."
             f"Use no more than 150 words."
         )
@@ -83,19 +83,22 @@ def get_gpt_prompt(content_style, theme, activity_data, bro_gpt_text, number_ver
         return (
             f"Give me 3 short, insightful proverbs about John's experiences with {theme} "
             f"while {activity_data['activity']}{bro_gpt_text}. "
-            f"Each proverb should be a single, impactful sentence, in quotes"
+            f"Each proverb should be a single, impactful sentence, in quotes. "
+            f"Try to tie the proverbs together in a short story. "
             f"Do not number the sentences and put two new lines between each quote."
         )
     elif content_style == 4:  # Parables (Short Story with Moral)
         return (
             f"Tell me a short parable about John's experiences with {theme} while {activity_data['activity']}{bro_gpt_text}. "
-            f"The parable should have a clear moral or lesson."
+            f"The parable should have a clear moral or lesson ,"
+            f"but when you say what the moral or lesson is, "
+            f"make it completely unserious or even a joke if it's funny. "
             f"Use no more than 150 words."
         )
     elif content_style == 5:  # Poem
         return (
             f"Write a poem about John experiencing {theme} while {activity_data['activity']}{bro_gpt_text}. "
-            f"Incorporate a cocktail inspired by the theme. "
+            f"Incorporate a cocktail inspired by the theme but do not give the cocktail a name. "
             f"The poem should have a poetic and reflective tone."
             f"Use no more than 50 words."
         )
