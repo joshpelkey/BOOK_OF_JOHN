@@ -811,7 +811,7 @@ if __name__ == "__main__":
     if content_style == 1:  # Book/Chapter
         starting_verse = random.randint(1, 995)
         number_verses = random.randint(2, 4)
-        ending_verse = starting_verse + number_verses
+        ending_verse = starting_verse + (number_verses - 1)
         str_numbers = f"{starting_verse} - {ending_verse}"
     elif content_style in [2, 4, 5, 6]: #Psalm/Parable/Peom/Jest
         str_numbers = random.randint(1, 10000)
