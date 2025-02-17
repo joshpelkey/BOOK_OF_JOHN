@@ -92,7 +92,7 @@ def get_gpt_prompt(content_style, theme, activity_data, bro_gpt_text, number_ver
             f"Tell me a short parable about John's experiences with {theme} while {activity_data['activity']}{bro_gpt_text}. "
             f"The parable should have a clear moral or lesson ,"
             f"but when you say what the moral or lesson is, "
-            f"crack a joke that a bunch of 40 year old guys would laugh at. "
+            f"crack a joke that a bunch of 40 year old guys would laugh at...we like dark humor and puns."
             f"Use no more than 150 words."
         )
     elif content_style == 5:  # Poem
