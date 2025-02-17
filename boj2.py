@@ -74,9 +74,9 @@ def get_gpt_prompt(content_style, theme, activity_data, bro_gpt_text, number_ver
         )
     elif content_style == 2:  # Psalms (Song Lyrics)
         return (
-            f"Write a song lyric about John experiencing {theme} while {activity_data['activity']}{bro_gpt_text}. "
+            f"Write a song about John experiencing {theme} while {activity_data['activity']}{bro_gpt_text}. "
             f"Incorporate a cocktail inspired by the theme but do not give the cocktail a name. "
-            f"The lyrics should have a poetic and reflective tone."
+            f"Choose from a number of different music styles like heavy metal, rap, 80 pop, classic rock, or something fun."
             f"Use no more than 150 words."
         )
     elif content_style == 3:  # Proverbs (One-Sentence Examples)
