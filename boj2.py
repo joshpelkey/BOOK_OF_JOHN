@@ -1,23 +1,25 @@
 import sys
 import random
-import openai
+from openai import OpenAI
 from slack_sdk.webhook import WebhookClient
 from slack_sdk.errors import SlackApiError
 import requests
 import subprocess
+import base64
 from urlextract import URLExtract
 
 import keys
 
 # Define constants for better readability
 HOME_DIR = keys.home_dir
-IMG_PATH1 = keys.img_path1
-BOT_TOKEN = keys.bot_token
+IMG_PATH = keys.img_path
 OPENAI_API_KEY = keys.openai_api_key
 
 # Slack webhook URLs
 SLACK_AI_KEY = keys.slack_ai_key
 SLACK_DEV_KEY = keys.slack_dev_key
+
+client = OpenAI(api_key=OPENAI_API_KEY)
 
 # Content Styles
 CONTENT_STYLES = {
@@ -123,7 +125,7 @@ def generate_gpt_story(prompt, content_style):
         str: The generated story.
     """
     if content_style == 1:  # Book/Chapter
-        response = openai.chat.completions.create(
+        response = client.chat.completions.create(
             model="gpt-4o",
             messages=[
                 {"role": "system", "content": "You are the most prolific story teller of all time. "
@@ -135,7 +137,7 @@ def generate_gpt_story(prompt, content_style):
         return response.choices[0].message.content
 
     elif content_style == 2:  # Psalms (Song Lyrics)
-        response = openai.chat.completions.create(
+        response = client.chat.completions.create(
             model="gpt-4o",
             messages=[
                 {"role": "system", "content": "You are a skilled poet and lyricist."},
@@ -146,7 +148,7 @@ def generate_gpt_story(prompt, content_style):
         return response.choices[0].message.content
 
     elif content_style == 3:  # Proverbs (One-Sentence Examples)
-        response = openai.chat.completions.create(
+        response = client.chat.completions.create(
             model="gpt-4o",
             messages=[
                 {"role": "system", "content": "You are a wise sage who can craft insightful proverbs."},
@@ -157,7 +159,7 @@ def generate_gpt_story(prompt, content_style):
         return response.choices[0].message.content
 
     elif content_style == 4:  # Parables (Short Story with Moral)
-        response = openai.chat.completions.create(
+        response = client.chat.completions.create(
             model="gpt-4o",
             messages=[
                 {"role": "system", "content": "You are a master storyteller who can weave captivating parables."},
@@ -168,7 +170,7 @@ def generate_gpt_story(prompt, content_style):
         return response.choices[0].message.content
 
     elif content_style == 5:  # Poem
-        response = openai.chat.completions.create(
+        response = client.chat.completions.create(
             model="gpt-4o",
             messages=[
                 {"role": "system", "content": "You are a skilled poet."},
@@ -179,7 +181,7 @@ def generate_gpt_story(prompt, content_style):
         return response.choices[0].message.content
 
     elif content_style == 6:  # Quips/Jokes
-        response = openai.chat.completions.create(
+        response = client.chat.completions.create(
             model="gpt-4o",
             messages=[
                 {"role": "system", "content": "You are a witty comedian and a wise guy."},
@@ -207,7 +209,7 @@ def generate_dalle_prompt(story, bro_dalle_text, content_style):
 
     if content_style in [1, 4]:  # Chronicles, Parables (more visual narratives)
 
-        response = openai.chat.completions.create(
+        response = client.chat.completions.create(
             model="gpt-4o",
             messages=[
                 {"role": "system", "content": "You are an expert image prompt engineer. "
@@ -222,7 +224,7 @@ def generate_dalle_prompt(story, bro_dalle_text, content_style):
 
     elif content_style in [2, 5]:  # Psalms, Verses (more abstract, mood-based)
 
-        response = openai.chat.completions.create(
+        response = client.chat.completions.create(
             model="gpt-4o",
             messages=[
                 {"role": "system", "content": "You are an expert image prompt engineer. "
@@ -236,7 +238,7 @@ def generate_dalle_prompt(story, bro_dalle_text, content_style):
 
     elif content_style == 3:  # Proverbs (focus on core message)
 
-        response = openai.chat.completions.create(
+        response = client.chat.completions.create(
             model="gpt-4o",
             messages=[
                 {"role": "system", "content": "You are an expert image prompt engineer. "
@@ -250,7 +252,7 @@ def generate_dalle_prompt(story, bro_dalle_text, content_style):
 
     elif content_style == 6:  # Jests (humor and exaggeration)
 
-        response = openai.chat.completions.create(
+        response = client.chat.completions.create(
             model="gpt-4o",
             messages=[
                 {"role": "system", "content": "You are an expert image prompt engineer. "
@@ -266,11 +268,11 @@ def generate_dalle_prompt(story, bro_dalle_text, content_style):
     else:
         raise ValueError("Invalid content style.")
 
-def generate_dalle_image(prompt):
+def generate_image(prompt, bro):
     """
-    Generates an image using the OpenAI DALL-E API.
+    Generates an image using the OpenAI create edit API.
     Args:
-        prompt (str): The prompt for DALL-E.
+        prompt (str): The prompt for the image model.
 
     Returns:
         str: The URL of the generated image, or None if no image is generated.
@@ -278,14 +280,49 @@ def generate_dalle_image(prompt):
     if prompt is None:
         return None  # No prompt, no image
 
-    response = openai.images.generate(
-        model="dall-e-3",
-        prompt=prompt,
-        n=1,
-        style="vivid",
-        size="1024x1024"
+    prompt_text = (
+            f"The reference images provided are fictional character illustrations, each labeled by name. "
+            f"Using the appropriate fictional character's appearance as artistic inspiration, "
+            f"generate a new stylized and imaginative scene based on the following description: {prompt}. "
+            f"The result should be creative, illustrative, and not intended to represent any real person. "
+            f"If you can't find an image with the right character, just use the prompt"
     )
-    return response.data[0].url
+
+    file1 = IMG_PATH + "John.png"
+
+    if bro:
+        name = bro['name']
+        file2 = IMG_PATH + name +".png"
+
+        response = client.images.edit(
+                model="gpt-image-1",
+                image=[
+                    open(file1, "rb"),
+                    open(file2, "rb"),
+                    ],
+                prompt=prompt_text,
+                n=1,
+                size="1024x1024",
+        )
+    else:
+    
+        response = client.images.edit(
+                model="gpt-image-1",
+                image=[
+                    open(file1, "rb"),
+                    ],
+                prompt=prompt_text,
+                n=1,
+                size="1024x1024",
+
+        )
+
+    image_base64 = response.data[0].b64_json
+    image_bytes = base64.b64decode(image_base64)
+
+    # Save the image to a file
+    with open("boj.png", "wb") as f:
+        f.write(image_bytes)
 
 def generate_cocktail_recipe(theme, activity_data):
     """
@@ -299,7 +336,7 @@ def generate_cocktail_recipe(theme, activity_data):
         str: The generated cocktail recipe in markdown format, or None if no recipe is generated.
     """
     # Generate a recipe for these themes
-    response = openai.chat.completions.create(
+    response = client.chat.completions.create(
         model="gpt-4o",
         messages=[
             {"role": "system", "content": "You are a mixologist. You mix up the most incredible cocktails."},
@@ -314,7 +351,7 @@ def generate_cocktail_recipe(theme, activity_data):
     )
     return response.choices[0].message.content
 
-def upload_image_to_imgur(image_url):
+def upload_image_to_imgur():
     """
     Uploads the generated image to Imgur.
 
@@ -324,12 +361,8 @@ def upload_image_to_imgur(image_url):
     Returns:
         str: The URL of the uploaded image on Imgur.
     """
-    img_data = requests.get(image_url).content
-    with open(HOME_DIR + IMG_PATH1, "wb") as handler:
-        handler.write(img_data)
-
     imgur_result = subprocess.run(
-        [HOME_DIR + "/.local/bin/imgur-uploader", HOME_DIR + IMG_PATH1],
+        [HOME_DIR + "/.local/bin/imgur-uploader", "boj.png"],
         stdout=subprocess.PIPE,
     )
 
@@ -755,7 +788,7 @@ if __name__ == "__main__":
     ]
 
     # Set your OpenAI API key
-    openai.api_key = OPENAI_API_KEY
+    client.api_key = OPENAI_API_KEY
 
     # Determine content style: command-line argument or random
     content_style = None
@@ -803,6 +836,7 @@ if __name__ == "__main__":
     else:
         bro_gpt_text = ""
         bro_dalle_text = ""
+        bro = None
 
 
     # Random number of verses and starting verse (if applicable)
@@ -828,13 +862,10 @@ if __name__ == "__main__":
     dalle_prompt = generate_dalle_prompt(story, bro_dalle_text, content_style)
 
     # Generate DALL-E image (if applicable)
-    image_url = generate_dalle_image(dalle_prompt)
+    generate_image(dalle_prompt, bro)
 
-    # Upload image to Imgur (if applicable)
-    if image_url:
-        imgur_url = upload_image_to_imgur(image_url)
-    else:
-        imgur_url = None
+    # store to imgur
+    imgur_url = upload_image_to_imgur()
 
     # Generate cocktail recipe (if applicable)
     cocktail_recipe = generate_cocktail_recipe(theme, activity_data)
