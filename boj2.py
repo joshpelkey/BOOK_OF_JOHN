@@ -282,10 +282,9 @@ def generate_image(prompt, bro):
 
     prompt_text = (
             f"The reference images provided are fictional character illustrations, each labeled by name. "
-            f"Using the appropriate fictional character's appearance as artistic inspiration, "
+            f"Using the appropriate fictional character as artistic inspiration, "
             f"generate a new stylized and imaginative scene based on the following description: {prompt}. "
             f"The result should be creative, illustrative, and not intended to represent any real person. "
-            f"If you can't find an image with the right character, just use the prompt"
     )
 
     file1 = IMG_PATH + "John.png"
