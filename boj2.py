@@ -86,28 +86,26 @@ def get_gpt_prompt(content_style, theme, activity_data, bro_gpt_text, number_ver
             f"Give me 3 short, insightful proverbs about John's experiences with {theme} "
             f"while {activity_data['activity']}{bro_gpt_text}. "
             f"Each proverb should be a single, impactful sentence, in quotes. "
-            f"Try to tie the proverbs together in a short story. "
+            f"Tie the proverbs together in a short story using a religious tone. "
             f"Do not number the sentences and put two new lines between each quote."
         )
     elif content_style == 4:  # Parables (Short Story with Moral)
         return (
             f"Tell me a short parable about John's experiences with {theme} while {activity_data['activity']}{bro_gpt_text}. "
-            f"The parable should have a clear moral or lesson ,"
-            f"but when you say what the moral or lesson is, "
-            f"crack a joke that a bunch of 40 year old guys would laugh at...we like dark humor and puns."
+            f"The parable should have a clear moral or lesson and be extremely formal. "
             f"Use no more than 150 words."
         )
     elif content_style == 5:  # Poem
         return (
             f"Write a poem about John experiencing {theme} while {activity_data['activity']}{bro_gpt_text}. "
             f"Incorporate a cocktail inspired by the theme but do not give the cocktail a name. "
-            f"The poem should have a poetic and reflective tone."
+            f"The poem should have a poetic and reflective tone. Pick a poet to emulate but do not tell me who."
             f"Use no more than 50 words."
         )
     elif content_style == 6:  # Quips/Jokes
         return (
             f"Tell me a dirty joke about John's experiences with {theme} "
-            f"while {activity_data['activity']}{bro_gpt_text}."
+            f"while {activity_data['activity']}{bro_gpt_text} in the style of stand up comedy. "
             f"Use no more than 150 words. Do not preface the joke, just tell it."
         )
     else:
