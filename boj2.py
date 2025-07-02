@@ -124,7 +124,7 @@ def generate_gpt_story(prompt, content_style):
     """
     if content_style == 1:  # Book/Chapter
         response = client.chat.completions.create(
-            model="gpt-4o",
+            model="gpt-4.1-mini",
             messages=[
                 {"role": "system", "content": "You are the most prolific story teller of all time. "
                                             "You always leave your readers astonished, bewildered, intrigued, or some other strong emotion."},
@@ -136,7 +136,7 @@ def generate_gpt_story(prompt, content_style):
 
     elif content_style == 2:  # Psalms (Song Lyrics)
         response = client.chat.completions.create(
-            model="gpt-4o",
+            model="gpt-4.1-mini",
             messages=[
                 {"role": "system", "content": "You are a skilled poet and lyricist."},
                 {"role": "user", "content": prompt}
@@ -147,7 +147,7 @@ def generate_gpt_story(prompt, content_style):
 
     elif content_style == 3:  # Proverbs (One-Sentence Examples)
         response = client.chat.completions.create(
-            model="gpt-4o",
+            model="gpt-4.1-mini",
             messages=[
                 {"role": "system", "content": "You are a wise sage who can craft insightful proverbs."},
                 {"role": "user", "content": prompt}
@@ -158,7 +158,7 @@ def generate_gpt_story(prompt, content_style):
 
     elif content_style == 4:  # Parables (Short Story with Moral)
         response = client.chat.completions.create(
-            model="gpt-4o",
+            model="gpt-4.1-mini",
             messages=[
                 {"role": "system", "content": "You are a master storyteller who can weave captivating parables."},
                 {"role": "user", "content": prompt}
@@ -169,7 +169,7 @@ def generate_gpt_story(prompt, content_style):
 
     elif content_style == 5:  # Poem
         response = client.chat.completions.create(
-            model="gpt-4o",
+            model="gpt-4.1-mini",
             messages=[
                 {"role": "system", "content": "You are a skilled poet."},
                 {"role": "user", "content": prompt}
@@ -180,7 +180,7 @@ def generate_gpt_story(prompt, content_style):
 
     elif content_style == 6:  # Quips/Jokes
         response = client.chat.completions.create(
-            model="gpt-4o",
+            model="gpt-4.1-mini",
             messages=[
                 {"role": "system", "content": "You are a witty comedian and a wise guy."},
                 {"role": "user", "content": prompt}
@@ -208,7 +208,7 @@ def generate_dalle_prompt(story, bro_dalle_text, content_style):
     if content_style in [1, 4]:  # Chronicles, Parables (more visual narratives)
 
         response = client.chat.completions.create(
-            model="gpt-4o",
+            model="gpt-4.1-mini",
             messages=[
                 {"role": "system", "content": "You are an expert image prompt engineer. "
                                             "Your task is to create a concise and evocative DALL-E prompt "
@@ -223,7 +223,7 @@ def generate_dalle_prompt(story, bro_dalle_text, content_style):
     elif content_style in [2, 5]:  # Psalms, Verses (more abstract, mood-based)
 
         response = client.chat.completions.create(
-            model="gpt-4o",
+            model="gpt-4.1-mini",
             messages=[
                 {"role": "system", "content": "You are an expert image prompt engineer. "
                                             "Your task is to create a concise and evocative DALL-E prompt "
@@ -237,7 +237,7 @@ def generate_dalle_prompt(story, bro_dalle_text, content_style):
     elif content_style == 3:  # Proverbs (focus on core message)
 
         response = client.chat.completions.create(
-            model="gpt-4o",
+            model="gpt-4.1-mini",
             messages=[
                 {"role": "system", "content": "You are an expert image prompt engineer. "
                                             "Your task is to create a concise and evocative DALL-E prompt "
@@ -251,7 +251,7 @@ def generate_dalle_prompt(story, bro_dalle_text, content_style):
     elif content_style == 6:  # Jests (humor and exaggeration)
 
         response = client.chat.completions.create(
-            model="gpt-4o",
+            model="gpt-4.1-mini",
             messages=[
                 {"role": "system", "content": "You are an expert image prompt engineer. "
                                             "Your task is to create a concise and evocative DALL-E prompt "
@@ -334,7 +334,7 @@ def generate_cocktail_recipe(theme, activity_data):
     """
     # Generate a recipe for these themes
     response = client.chat.completions.create(
-        model="gpt-4o",
+        model="gpt-4.1-mini",
         messages=[
             {"role": "system", "content": "You are a mixologist. You mix up the most incredible cocktails."},
             {"role": "user", "content": f"Craft a cocktail recipe inspired by the theme of {theme} "
