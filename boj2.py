@@ -266,6 +266,19 @@ def generate_dalle_prompt(story, bro_dalle_text, content_style):
     else:
         raise ValueError("Invalid content style.")
 
+def create_file(file_path):
+  with open(file_path, "rb") as file_content:
+    result = client.files.create(
+        file=file_content,
+        purpose="vision",
+    )
+    return result.id
+
+def encode_image(file_path):
+    with open(file_path, "rb") as f:
+        base64_image = base64.b64encode(f.read()).decode("utf-8")
+    return base64_image
+
 def generate_image(prompt, bro):
     """
     Generates an image using the OpenAI create edit API.
@@ -285,41 +298,79 @@ def generate_image(prompt, bro):
             f"The result should be creative, illustrative, and not intended to represent any real person. "
     )
 
-    file1 = IMG_PATH + "John.png"
+    base64_image1 = encode_image(IMG_PATH + "John.png")
+    file_id1 = create_file(IMG_PATH + "John.png")
 
     if bro:
         name = bro['name']
-        file2 = IMG_PATH + name +".png"
+        base64_image2 = encode_image(IMG_PATH + name +".png")
+        file_id2 = create_file(IMG_PATH + name +".png")
 
-        response = client.images.edit(
-                model="gpt-image-1",
-                image=[
-                    open(file1, "rb"),
-                    open(file2, "rb"),
+        response = client.responses.create(
+            model="gpt-4.1-mini",
+            input=[
+                {
+                    "role": "user",
+                    "content": [
+                        {"type": "input_text", "text": prompt_text},
+                        {
+                            "type": "input_image",
+                            "image_url": f"data:image/jpeg;base64,{base64_image1}",
+                        },
+                        {
+                            "type": "input_image",
+                            "image_url": f"data:image/jpeg;base64,{base64_image2}",
+                        },
+                        {
+                            "type": "input_image",
+                            "file_id": file_id1,
+                        },
+                        {
+                            "type": "input_image",
+                            "file_id": file_id2,
+                        }
                     ],
-                prompt=prompt_text,
-                n=1,
-                size="1024x1024",
+                }
+            ],
+            tools=[{"type": "image_generation"}],
         )
     else:
-    
-        response = client.images.edit(
-                model="gpt-image-1",
-                image=[
-                    open(file1, "rb"),
+        response = client.responses.create(
+            model="gpt-4.1-mini",
+            input=[
+                {
+                    "role": "user",
+                    "content": [
+                        {"type": "input_text", "text": prompt_text},
+                        {
+                            "type": "input_image",
+                            "image_url": f"data:image/jpeg;base64,{base64_image1}",
+                        },
+                        {
+                            "type": "input_image",
+                            "file_id": file_id1,
+                        }
                     ],
-                prompt=prompt_text,
-                n=1,
-                size="1024x1024",
-
+                }
+            ],
+            tools=[{"type": "image_generation"}],
         )
 
-    image_base64 = response.data[0].b64_json
-    image_bytes = base64.b64decode(image_base64)
+    
+    image_generation_calls = [
+        output
+        for output in response.output
+        if output.type == "image_generation_call"
+    ]
 
-    # Save the image to a file
-    with open("boj.png", "wb") as f:
-        f.write(image_bytes)
+    image_data = [output.result for output in image_generation_calls]
+
+    if image_data:
+        image_base64 = image_data[0]
+        with open("boj.png", "wb") as f:
+            f.write(base64.b64decode(image_base64))
+    else:
+        print(response.output.content)
 
 def generate_cocktail_recipe(theme, activity_data):
     """
