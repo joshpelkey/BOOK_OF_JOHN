@@ -877,10 +877,7 @@ if __name__ == "__main__":
 
         bro_gpt_text = f" with his bro {bro['name']}"
 
-        if bro['beard']:
-            bro_dalle_text = f" with his bro {bro['name']} ({bro['sex']}, {bro['hair']} hair, {bro['eyes']} eyes, with beard)"
-        else:
-            bro_dalle_text = f" with his bro {bro['name']} ({bro['sex']}, {bro['hair']} hair, {bro['eyes']} eyes, clean-shaven)"
+        bro_dalle_text = f" with his bro {bro['name']}"
     else:
         bro_gpt_text = ""
         bro_dalle_text = ""
